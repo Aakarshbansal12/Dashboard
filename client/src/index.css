@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+input#email {
+  padding-left: 10px;
+      border: 1px solid;
+}
+
+input#name {
+  padding-left: 10px;
+  border: 1px solid;
+}
+
+input#number {
+  padding-left: 10px;
+  border: 1px solid;
+}

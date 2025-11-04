@@ -24,12 +24,12 @@ module.exports = {
     dashboard: async (req, res) => {
         try {
             let user = await db.users.count({
-                where:{role:'1'}
+                where: { role: '1' }
             });
             let booking = await db.bookings.count();
             let category = await db.category.count();
             let product = await db.product.count();
-            return res.status(200).json({ message: "Data fetched successfully",user,booking,category,product });
+            return res.status(200).json({ message: "Data fetched successfully", user, booking, category, product });
 
         } catch (error) {
             console.log(error, "error in count dashboard");
@@ -76,5 +76,37 @@ module.exports = {
             return res.status(500).json({ message: "Internal server error" });
         }
     },
+    updateAdmin:async (req, res) => {
+            try {
+                userId = req.admin.id;
+                const { name, number, email, country_code } = req.body;
+                const existingUser = await db.users.findByPk(userId);
+                if (!existingUser) {
+                    return res.status(404).json({ message: "User not found" });
+                }
+    
+                let image = existingUser.image;
+                if (req.files && req.files.image) {
+                    image = await hlper.fileUpload(req.files.image);
+                }
+                const data1 = await db.users.update({
+                    name: name,
+                    number: number,
+                    email: email,
+                    image: image,
+                    country_code: country_code
+                }, {
+                    where: { id: userId }
+                })
+    
+    
+                return res.json({
+                    message: 'updated Successfully'
+                })
+    
+            } catch (error) {
+                console.log(error, "error in update Admin")
+            }
+        }
 
 }

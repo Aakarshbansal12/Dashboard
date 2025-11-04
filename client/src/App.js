@@ -6,7 +6,6 @@ import Layout from './Component/common/Layout'
 import Table from './Component/userlist/Userlist'
 import Edit from './Component/userlist/Edit'
 import View from './Component/userlist/View'
-import Profile from './Component/profile/Profile'
 import Updatepassword from './Component/profile/Updatepassword'
 import Logout from './Component/profile/Logout'
 import Authenticate from './Component/profile/Authenticate'
@@ -19,7 +18,12 @@ import ViewProduct from './Component/products/ViewProduct'
 import EditProduct from './Component/products/EditProduct'
 import BookingList from './Component/bookings/BookingList'
 import ViewBooking from './Component/bookings/ViewBooking'
-import EditBooking from './Component/bookings/EditBooking'
+import Contact from './Component/contact/Contact'
+import ViewContact from './Component/contact/ViewContact'
+import PrivacyPolicy from './Component/cms/PrivacyPolicy'
+import AboutUs from './Component/cms/AboutUs'
+import TermsCondition from './Component/cms/TermsCondition'
+import UpdateAdmin from './Component/profile/UpdateAdmin'
 
 const App = () => {
   return (
@@ -32,8 +36,8 @@ const App = () => {
           <Route path='/userList' element={<Table />} />
           <Route path='/editUser/:id' element={<Edit />} />
           <Route path='/viewUser/:id' element={<View />} />
-          <Route path='/adminProfile' element={<Profile />} />
           <Route path='/adminPass' element={<Updatepassword />} />
+          <Route path='/updateAdmin' element={<UpdateAdmin />} />
           <Route path='/logOut' element={<Logout />} />
           <Route path='/categoryList' element={<Category />} />
           <Route path='/editCategory/:id' element={<EditCategory />} />
@@ -44,6 +48,11 @@ const App = () => {
           <Route path='/editProduct/:id' element={<EditProduct />} />
           <Route path='/bookingList' element={<BookingList />} />
           <Route path='/viewBooking/:id' element={<ViewBooking />} />
+          <Route path='/contactList' element={<Contact />} />
+          <Route path='/viewContact/:id' element={<ViewContact />} />
+          <Route path='/privacy' element={<PrivacyPolicy />} />
+          <Route path='/aboutUs' element={<AboutUs />} />
+          <Route path='/termsConditions' element={<TermsCondition />} />
           </Route>
         </Route>
       </Routes>

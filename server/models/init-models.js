@@ -1,13 +1,12 @@
 var DataTypes = require("sequelize").DataTypes;
-var _bookings = require("./bookings");
+var _cms = require("./cms");
 
 function initModels(sequelize) {
-  var bookings = _bookings(sequelize, DataTypes);
-
+  var cms = _cms(sequelize, DataTypes);
 
 
   return {
-    bookings,
+    cms,
   };
 }
 module.exports = initModels;

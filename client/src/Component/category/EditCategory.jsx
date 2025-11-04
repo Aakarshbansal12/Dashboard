@@ -75,7 +75,7 @@ const handleSubmit = async (e) => {
       formData.append("oldImage", category.image);
     }
 
-    await axiosInstance.post(`${BASE_URL}updateCategory/${id}`,
+    await axiosInstance.post(`${BASE_URL}/updateCategory/${id}`,
       formData
     );
     toast.success('User Data Updated Successfully ')

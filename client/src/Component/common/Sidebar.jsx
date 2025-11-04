@@ -40,6 +40,30 @@ const Sidebar = () => {
         pathname.startsWith("/editBooking")
       )
     }
+    if(path==="/contactList"){
+      return(
+        pathname==="/contactList"||
+        pathname.startsWith("/viewContact")
+      )
+    }
+
+    if(path==="/privacy"){
+      return(
+        pathname==="/privacy"
+      )
+    }
+
+    if(path==="/aboutUs"){
+      return(
+        pathname==="/aboutUs"
+      )
+    }
+
+    if(path==="/termsConditions"){
+      return(
+        pathname==="/termsConditions"
+      )
+    }
 
     return pathname.startsWith(path);
   };
@@ -98,15 +122,41 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-dark" href="../pages/notifications.html">
-                <i className="material-symbols-rounded opacity-5">notifications</i>
-                <span className="nav-link-text ms-1">Notifications</span>
-              </a>
+              <Link onClick={() => handleActive('/contactList')}
+               className={`nav-link ${isActive('/contactList') ? 'active bg-gradient-dark text-white' : 'text-dark'}`}
+               to="/contactList">
+                <i className="material-symbols-rounded opacity-5">call</i>
+                <span className="nav-link-text ms-1">Contact Us</span>
+              </Link>
             </li>
-            <li className="nav-item mt-3">
+            <li className="nav-item">
+              <Link onClick={() => handleActive('/privacy')}
+                className={`nav-link ${isActive('/privacy') ? 'active bg-gradient-dark text-white' : 'text-dark'}`}
+                to="/privacy">
+                <i className="material-symbols-rounded opacity-5">lock</i>
+                <span className="nav-link-text ms-1">Privacy & Policy</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link onClick={() => handleActive('/aboutUs')}
+                className={`nav-link ${isActive('/aboutUs') ? 'active bg-gradient-dark text-white' : 'text-dark'}`}
+                to="/aboutUs">
+                <i className="material-symbols-rounded opacity-5">info</i>
+                <span className="nav-link-text ms-1">About Us</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link onClick={() => handleActive('/termsConditions')}
+                className={`nav-link ${isActive('/termsConditions') ? 'active bg-gradient-dark text-white' : 'text-dark'}`}
+                to="/termsConditions">
+                <i className="material-symbols-rounded opacity-5">gavel</i>
+                <span className="nav-link-text ms-1">Terms And Conditions</span>
+              </Link>
+            </li>
+            {/* <li className="nav-item mt-3">
               <h6 className="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Account pages</h6>
-            </li>
-            <Dropdown as="li" className="nav-item">
+            </li> */}
+            {/* <Dropdown as="li" className="nav-item">
               <Dropdown.Toggle
                 as="button"
                 className="nav-link text-dark"
@@ -128,28 +178,12 @@ const Sidebar = () => {
                   Log Out
                 </Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
 
-            <li className="nav-item">
-              <Link className="nav-link text-dark" to="/">
-                <i className="material-symbols-rounded opacity-5">login</i>
-                <span className="nav-link-text ms-1">Sign In</span>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-dark" to="/signUp">
-                <i className="material-symbols-rounded opacity-5">assignment</i>
-                <span className="nav-link-text ms-1">Sign Up</span>
-              </Link>
-            </li>
+            
           </ul>
         </div>
-        <div className="sidenav-footer position-absolute w-100 bottom-0 ">
-          <div className="mx-3">
-            <a className="btn btn-outline-dark mt-4 w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard?ref=sidebarfree" type="button">Documentation</a>
-            <a className="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-          </div>
-        </div>
+        
       </aside>
     </>
   )

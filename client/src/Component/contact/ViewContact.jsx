@@ -1,15 +1,16 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { axiosInstance,BASE_URL } from '../Config';
+import React from 'react'
+import { useState,useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { axiosInstance } from '../Config';
 
-const Profile = () => {
+const ViewContact = () => {
     const [users, setUsers] = useState(null);
-    const navigate=useNavigate();
+    const { id } = useParams();
 
-    const fetchUser = async () => {
+    const fetchData = async (id) => {
         try {
-            const res = await axiosInstance.get(`/getAdmin`);
+            const res = await axiosInstance.get(`/getContact/${id}`);
+            console.log(res, '//////////')
 
             setUsers(res.data)
 
@@ -17,13 +18,9 @@ const Profile = () => {
             console.error("Error fetching data:", error);
         }
     }
-
-    const backBtn = () => {
-        navigate("/userList");
-    };
     useEffect(() => {
-       fetchUser();
-    }, []);
+            if (id) fetchData(id);
+        }, [id]);
     return (
         <>
             <div className="container-fluid py-2">
@@ -33,12 +30,10 @@ const Profile = () => {
                             <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div className="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
                                     <h6 className="text-white text-capitalize ps-3">
-                                        Admin Profile
+                                        Contact Details
                                     </h6>
                                 </div>
                             </div>
-
-
                             <div className="card-body px-4 pb-4">
                                 <form >
                                     <div className="form-group mb-3">
@@ -64,20 +59,9 @@ const Profile = () => {
                                     </div>
 
                                     <div className="form-group mb-3">
-                                        <label htmlFor="staticEmail" className="col-form-label fw-bold">Country_code</label>
-                                        <input
-                                            type="text"
-                                            readOnly
-                                            className="form-control border border-dark border-opacity-75 ps-3"
-                                            id="staticEmail"
-                                            value={users?.country_code}
-                                        />
-                                    </div>
-
-                                    <div className="form-group mb-3">
                                         <label htmlFor="staticEmail" className="col-form-label fw-bold">Number</label>
                                         <input
-                                            type="text"
+                                            type="number"
                                             readOnly
                                             className="form-control border border-dark border-opacity-75 ps-3"
                                             id="staticEmail"
@@ -86,24 +70,15 @@ const Profile = () => {
                                     </div>
 
                                     <div className="form-group mb-3">
-                                        <label htmlFor="staticEmail" className="col-form-label fw-bold">Location</label>
+                                        <label htmlFor="staticEmail" className="col-form-label fw-bold">Message</label>
                                         <input
-                                            type="text"
+                                            type="message"
                                             readOnly
                                             className="form-control border border-dark border-opacity-75 ps-3"
                                             id="staticEmail"
-                                            value={users?.location}
+                                            value={users?.message}
                                         />
                                     </div>
-                                    <div className="form-group mb-3">
-                                        <img src={`${BASE_URL}/${users?.image}`} alt="" 
-                                        style={{ width: "120px", height: "120px", objectFit: "cover", borderRadius: "8px" }}/>
-                                        
-                                    </div>
-                                    <button type="button" className="btn bg-gradient-dark text-white mt-3" onClick={backBtn}>
-                                    Back
-                                </button>
-
                                 </form>
                             </div>
                         </div>
@@ -114,4 +89,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default ViewContact

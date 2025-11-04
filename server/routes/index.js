@@ -6,6 +6,8 @@ var token=require('../middleware/token');
 var product=require('../controller/productController');
 var booking=require('../controller/bookingsController');
 var admin=require('../controller/adminController')
+var contact=require('../controller/contactController')
+var cms=require('../controller/cmsController')
 
 ////////// USER CONTROLLER /////////////////
 router.post('/addUser',users.addUser);
@@ -50,7 +52,23 @@ router.post('/updateBooking/:id',booking.updateBooking);
 ///////ADMIN CONTROLLER ////////
 router.get('/getAdmin',admin.getAdmin);
 router.post('/updateAdminPass',admin.updateAdminPassword);
+router.post('/updateAdmin',admin.updateAdmin);
 router.get('/dashboard',admin.dashboard);
+
+///////CONTACT CONTROLLER ////////
+
+router.get('/addQuery',contact.addQuery)
+router.post('/deleteQuery/:id',contact.deleteQuery)
+router.get('/getContact/:id',contact.getContact)
+
+///// CMS CONTROLLER ////////////
+
+router.get('/getPrivacy',cms.getPrivacy);
+router.post('/getPrivacy',cms.updatePrivacy);
+router.get('/getAboutUs',cms.getAboutUs);
+router.post('/getAboutUs',cms.updateAboutUs);
+router.get('/getTerms',cms.getTerms);
+router.post('/getTerms',cms.updateTerms);
 
 
 module.exports = router;
