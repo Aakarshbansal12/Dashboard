@@ -103,12 +103,12 @@ const Edit = () => {
     return (
         <>
 
-            <div className="container-fluid py-2">
+            <div className="container-fluid">
                 <div className="row">
                     <div className="col-12">
                         <div className="card my-4">
                             <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-3 pb-2">
                                     <h6 className="text-white text-capitalize ps-3">Edit Info</h6>
                                 </div>
                             </div>

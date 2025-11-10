@@ -1,16 +1,14 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
 import { axiosInstance } from '../Config';
-import { BASE_URL } from '../Config';
 
-const ViewBooking = () => {
+const ViewRating = () => {
     const [users, setUsers] = useState(null);
-    const { id } = useParams();
     const navigate = useNavigate();
-    const fetchBooking = async (id) => {
+    const { id } = useParams();
+    const fetchData = async (id) => {
         try {
-            const res = await axiosInstance.get(`/getBooking/${id}`);
+            const res = await axiosInstance.get(`/getRating/${id}`);
             setUsers(res.data)
 
         } catch (error) {
@@ -19,13 +17,12 @@ const ViewBooking = () => {
     }
 
     useEffect(() => {
-        if (id) fetchBooking(id);
-    }, [id]);
+            if (id) fetchData(id);
+        }, [id]);
 
-    const backBtn = () => {
-        navigate('/bookingList')
+        const backBtn = () => {
+        navigate('/rating')
     }
-
     return (
         <>
             <div className="container-fluid">
@@ -34,11 +31,11 @@ const ViewBooking = () => {
                         <div className="card my-4">
                             <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div className="bg-gradient-dark shadow-dark border-radius-lg pt-3 pb-2">
-                                    <h6 className="text-white text-capitalize ps-3">View Bookings</h6>
+                                    <h6 className="text-white text-capitalize ps-3">Ratings</h6>
                                 </div>
                             </div>
                             <div className="card-body px-4 pb-4">
-                                <form >
+                                <form>
                                     <div className="form-group mb-3">
                                         <label htmlFor="staticEmail" className="col-form-label fw-bold">User Name</label>
                                         <input
@@ -46,45 +43,41 @@ const ViewBooking = () => {
                                             readOnly
                                             className="form-control border border-dark border-opacity-75 ps-3"
                                             id="staticEmail"
-                                            value={users?.user.name}
+                                            value={users?.userss.name}
                                         />
                                     </div>
+
                                     <div className="form-group mb-3">
-                                        <label htmlFor="staticEmail" className="col-form-label fw-bold">Category name</label>
+                                        <label htmlFor="staticEmail" className="col-form-label fw-bold">Product Name</label>
                                         <input
                                             type="text"
                                             readOnly
                                             className="form-control border border-dark border-opacity-75 ps-3"
                                             id="staticEmail"
-                                            value={users?.prod?.cate?.name}
+                                            value={users?.products.name}
                                         />
                                     </div>
 
                                     <div className="form-group mb-3">
-                                        <label htmlFor="staticEmail" className="col-form-label fw-bold">Product name</label>
+                                        <label htmlFor="staticEmail" className="col-form-label fw-bold">Review</label>
                                         <input
                                             type="text"
                                             readOnly
                                             className="form-control border border-dark border-opacity-75 ps-3"
                                             id="staticEmail"
-                                            value={users?.prod?.name}
+                                            value={users?.reviews}
                                         />
                                     </div>
 
                                     <div className="form-group mb-3">
-                                        <label htmlFor="staticEmail" className="col-form-label fw-bold">Booking Code</label>
+                                        <label htmlFor="staticEmail" className="col-form-label fw-bold">Rating</label>
                                         <input
                                             type="text"
                                             readOnly
                                             className="form-control border border-dark border-opacity-75 ps-3"
                                             id="staticEmail"
-                                            value={users?.booking_code}
+                                            value={users?.rating}
                                         />
-                                    </div>
-
-                                    <div className="form-group mb-3">
-                                        <img src={`${BASE_URL}/${users?.prod?.image}`} alt="" />
-
                                     </div>
 
                                     <button type="button" className="btn bg-gradient-dark text-white mt-3" onClick={backBtn}>
@@ -100,4 +93,4 @@ const ViewBooking = () => {
     )
 }
 
-export default ViewBooking
+export default ViewRating

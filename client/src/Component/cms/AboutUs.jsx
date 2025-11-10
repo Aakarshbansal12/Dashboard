@@ -10,8 +10,6 @@ import { toast, ToastContainer } from "react-toastify";
 
 const AboutUs = () => {
 
-    
-
     const [users, setUsers] = useState({
         title: "",
         content: "",
@@ -41,31 +39,31 @@ const AboutUs = () => {
     };
 
     const handleSubmit = async (e) => {
-              e.preventDefault();
-      
-              const plainText = users.content
-                  .replace(/<[^>]+>/g, "")
-                  .replace(/&nbsp;/g, "")
-                  .trim();
-      
-              if (!users.title.trim() || !plainText) {
-                  toast.warning("Please fill in content field before submitting!");
-                  return;
-              }
-      
-              try {
-                  const formData = new FormData();
-                  formData.append("title", users.title);
-                  formData.append("content", users.content);
-      
-                  await axiosInstance.post(`/getAboutUs`, formData);
-                  toast.success("Terms & Conditions updated successfully!");
-              } catch (error) {
-                  console.error("Error in handleSubmit:", error);
-                  toast.error("Failed to update Terms & Conditions!");
-              }
-          };
-    
+        e.preventDefault();
+
+        const plainText = users.content
+            .replace(/<[^>]+>/g, "")
+            .replace(/&nbsp;/g, "")
+            .trim();
+
+        if (!users.title.trim() || !plainText) {
+            toast.warning("Please fill in content field before submitting!");
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append("title", users.title);
+            formData.append("content", users.content);
+
+            await axiosInstance.post(`/getAboutUs`, formData);
+            toast.success("Terms & Conditions updated successfully!");
+        } catch (error) {
+            console.error("Error in handleSubmit:", error);
+            toast.error("Failed to update Terms & Conditions!");
+        }
+    };
+
 
     // Fetch existing data
     const fetchData = async () => {
@@ -94,15 +92,13 @@ const AboutUs = () => {
     }, []);
     return (
         <>
-            <div className="container-fluid py-2">
+            <div className="container-fluid">
                 <div className="row">
                     <div className="col-12">
                         <div className="card my-4">
                             <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                                    <h6 className="text-white text-capitalize ps-3">
-                                        About Us
-                                    </h6>
+                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-3 pb-2">
+                                    <h6 className="text-white text-capitalize ps-3">About Us</h6>
                                 </div>
                             </div>
                             <div className="card-body px-4 pb-4">
@@ -141,14 +137,14 @@ const AboutUs = () => {
                                     >
                                         Update
                                     </button>
-                            
+
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </>
     )
 }

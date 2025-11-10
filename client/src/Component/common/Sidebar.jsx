@@ -65,6 +65,21 @@ const Sidebar = () => {
       )
     }
 
+    if(path==="/rating"){
+      return(
+        pathname==="/rating"||
+        pathname.startsWith("/viewRating")
+      )
+    }
+
+    if(path==="/bannerList"){
+      return(
+        pathname==="/bannerList"||
+        pathname.startsWith("/viewBanner")||
+        pathname.startsWith("/editBanner")
+      )
+    }
+
     return pathname.startsWith(path);
   };
   return (
@@ -122,11 +137,27 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link onClick={() => handleActive('/bannerList')}
+                className={`nav-link ${isActive('/bannerList') ? 'active bg-gradient-dark text-white' : 'text-dark'}`}
+                to="/bannerList">
+                <i className="material-symbols-rounded">campaign</i>
+                <span className="nav-link-text ms-1">Banners</span>
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link onClick={() => handleActive('/contactList')}
                className={`nav-link ${isActive('/contactList') ? 'active bg-gradient-dark text-white' : 'text-dark'}`}
                to="/contactList">
                 <i className="material-symbols-rounded opacity-5">call</i>
                 <span className="nav-link-text ms-1">Contact Us</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link onClick={() => handleActive('/rating')}
+                className={`nav-link ${isActive('/rating') ? 'active bg-gradient-dark text-white' : 'text-dark'}`}
+                to="/rating">
+                <i className="material-symbols-rounded">star</i>
+                <span className="nav-link-text ms-1">Rating</span>
               </Link>
             </li>
             <li className="nav-item">

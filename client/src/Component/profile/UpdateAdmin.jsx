@@ -17,63 +17,81 @@ const UpdateAdmin = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
 
-useEffect(() => {
-  const fetchProfileData = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("No token found. Please log in again.");
-      return;
-    }
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("No token found. Please log in again.");
+        return;
+      }
 
-    try {
-      const response = await axiosInstance.get(`/getAdmin`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      try {
+        const response = await axiosInstance.get(`/getAdmin`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-      console.log("API Response:", response.data);
-      const user = response.data;
+        console.log("API Response:", response.data);
+        const user = response.data;
 
-      setData({
-        name: user.name || "",
-        email: user.email || "",
-        number: user.number?.toString() || "",
-        country_code: user.country_code || "",
-        image: user.image || "",
-      });
+        setData({
+          name: user.name || "",
+          email: user.email || "",
+          number: user.number?.toString() || "",
+          country_code: user.country_code || "",
+          image: user.image || "",
+        });
 
-      const imageUrl = user.image?.startsWith("http")
-        ? user.image
-        : `${BASE_URL}${user.image}`;
-      setImagePreview(imageUrl);
-    } catch (error) {
-      console.error("Fetch error:", error);
-      toast.error("Error fetching profile data");
-    }
-  };
+        const imageUrl = user.image?.startsWith("http")
+          ? user.image
+          : `${BASE_URL}${user.image}`;
+        setImagePreview(imageUrl);
+      } catch (error) {
+        console.error("Fetch error:", error);
+        toast.error("Error fetching profile data");
+      }
+    };
 
-  fetchProfileData();
-}, []);
+    fetchProfileData();
+  }, []);
 
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setSelectedImage(file);
-      setImagePreview(URL.createObjectURL(file));
+
+    if (!file) return;
+    const allowedTypes = ["image/jpeg", "image/png"];
+
+    if (!allowedTypes.includes(file.type)) {
+      e.target.value = "";
+      return;
     }
+    setSelectedImage(file);
+    setImagePreview(URL.createObjectURL(file));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+
+
+    let formattedValue = value
+      .replace(/^\s+/g, "")
+      .replace(/\s{2,}/g, " ");
+
+    setData((prev) => ({ ...prev, [name]: formattedValue }));
   };
 
+
   const handleChange1 = (e) => {
-  const { name, value } = e.target;
-  if (/^\d*$/.test(value)) {
-    setData((prev) => ({ ...prev, [name]: value }));
-  }
-};
+    const { name, value } = e.target;
+    if (/^\d*$/.test(value)) {
+      if (value.trim() === "") {
+        setData((prev) => ({ ...prev, [name]: "" }));
+      } else {
+        setData((prev) => ({ ...prev, [name]: value }));
+      }
+    }
+  };
+
 
 
   const handleSubmit = async (e) => {
@@ -180,6 +198,7 @@ useEffect(() => {
                                 </div>
                                 <input
                                   type="file"
+                                  accept="image/jpeg, image/png"
                                   style={{ display: "none" }}
                                   id="image"
                                   onChange={handleImageChange}
@@ -230,7 +249,11 @@ useEffect(() => {
                                       className="form-control"
                                       placeholder="Enter Phone Number"
                                       maxLength={15}
+                                      minLength={8}
+                                      pattern="\d{8,15}"
+                                      required
                                     />
+
                                   </div>
                                 </div>
 

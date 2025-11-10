@@ -11,13 +11,12 @@ import { useNavigate } from 'react-router-dom';
 const BookingList = () => {
     const [total, setTotal] = useState(0);
     const [booking, setBooking] = useState([]);
-    const [isToastVisible, setToastVisible] = useState(false);
     const navigate = useNavigate();
 
     const fetchBookingData = async () => {
         try {
             const res = await axiosInstance.get("/bookingsList");
-            console.log(res,'dfkhkfffffffffff')
+            console.log(res, 'dfkhkfffffffffff')
             setBooking(res.data);
 
         } catch (error) {
@@ -25,13 +24,13 @@ const BookingList = () => {
         }
     }
     const fetchBookingCount = async () => {
-            try {
-                const res = await axiosInstance.get("/countBooking");
-                setTotal(res.data);
-            } catch (error) {
-                console.error("Error fetching user count:", error);
-            }
-        };
+        try {
+            const res = await axiosInstance.get("/countBooking");
+            setTotal(res.data);
+        } catch (error) {
+            console.error("Error fetching user count:", error);
+        }
+    };
 
     useEffect(() => {
         fetchBookingData();
@@ -92,15 +91,13 @@ const BookingList = () => {
     };
     return (
         <>
-            <div className="container-fluid py-2">
+            <div className="container-fluid">
                 <div className="row">
                     <div className="col-12">
                         <div className="card my-4">
                             <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                                    <h6 className="text-white text-capitalize ps-3">
-                                        Booking List
-                                    </h6>
+                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-3 pb-2">
+                                    <h6 className="text-white text-capitalize ps-3">Booking List</h6>
                                 </div>
                             </div>
                             <div className="card-body px-0 pb-2">
@@ -164,13 +161,13 @@ const BookingList = () => {
                                                         <td className="align-middle text-center text-sm">
                                                             <button
                                                                 className={`btn btn-sm text-white ${user.status === '0'
-                                                                        ? "bg-gradient-danger"
-                                                                        : user.status === '1'
-                                                                            ? "bg-gradient-warning"
-                                                                            : "bg-gradient-success"
+                                                                    ? "bg-gradient-danger"
+                                                                    : user.status === '1'
+                                                                        ? "bg-gradient-warning"
+                                                                        : "bg-gradient-success"
                                                                     }`}
                                                             >
-                                                                {user.status === '0' ? "pending": user.status === '1' ? "Ongoing": "Completed"}
+                                                                {user.status === '0' ? "pending" : user.status === '1' ? "Ongoing" : "Completed"}
                                                             </button>
 
                                                         </td>

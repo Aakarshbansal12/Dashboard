@@ -1,69 +1,44 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import { axiosInstance } from '../Config';
-import { BASE_URL } from '../Config';
-import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
-import { Edit, Trash, Eye } from 'react-feather'
+import React, { useEffect, useState } from 'react'
+import { axiosInstance, BASE_URL } from '../Config';
+import { Eye, Trash,Edit } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const ProductList = () => {
+const BannerList = () => {
     const [total, setTotal] = useState(0);
-    const [product, setProduct] = useState([]);
-    const [isToastVisible, setToastVisible] = useState(false);
+    const [banner, setBanner] = useState([]);
     const navigate = useNavigate();
 
-    const fetchProductCount = async () => {
+    const fetchBannerData = async () => {
         try {
-            const res = await axiosInstance.get("/countProduct");
-            setTotal(res.data.total);
-        } catch (error) {
-            console.error("Error fetching user count:", error);
-        }
-    };
-
-    const fetchProductData = async () => {
-        try {
-            const res = await axiosInstance.get("/productlist");
-            setProduct(res.data);
+            const res = await axiosInstance.get("/getAllBanner");
+            setBanner(res.data);
 
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     }
-
-    const handleStatusToggle = async (id) => {
+    const fetchBannerCount = async () => {
         try {
-            const res = await axiosInstance.post(`/updateProductStatus/${id}`, {},);
-
-            if (res.data && res.data.status !== undefined) {
-                setProduct((prevData) =>
-                    prevData.map((user) =>
-                        user.id === id ? { ...user, status: String(res.data.status) } : user
-                    )
-                );
-
-                if (!isToastVisible) {
-                    setToastVisible(true);
-                    toast.success("User Status Updated Successfully", {
-                        onClose: () => setToastVisible(false),
-                    });
-                }
-            }
+            const res = await axiosInstance.get("/countBanner");
+            setTotal(res.data);
         } catch (error) {
-            console.error('Error in handleStatusToggle:', error);
+            console.error("Error fetching user count:", error);
         }
     };
 
+    useEffect(() => {
+        fetchBannerCount();
+        fetchBannerData();
+    }, [])
+
     const handleView = (id) => {
-        navigate(`/viewProduct/${id}`);
+        navigate(`/viewBanner/${id}`);
     };
 
     const handleEdit = (id) => {
-        navigate(`/editProduct/${id}`);
+        navigate(`/editBanner/${id}`);
     };
-
     const handleDelete = async (id) => {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -86,9 +61,9 @@ const ProductList = () => {
             .then(async (result) => {
                 if (result.isConfirmed) {
                     try {
-                        await axiosInstance.post(`/deleteProduct/${id}`);
+                        await axiosInstance.post(`/deleteBanner/${id}`);
 
-                        setProduct((prevUsers) => prevUsers.filter((user) => user.id !== id));
+                        setBanner((prevUsers) => prevUsers.filter((user) => user.id !== id));
 
                         swalWithBootstrapButtons.fire({
                             title: "Deleted!",
@@ -112,12 +87,6 @@ const ProductList = () => {
                 }
             });
     };
-
-    useEffect(() => {
-        fetchProductCount();
-        fetchProductData();
-    }, [])
-
     return (
         <>
             <div className="container-fluid">
@@ -126,7 +95,7 @@ const ProductList = () => {
                         <div className="card my-4">
                             <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div className="bg-gradient-dark shadow-dark border-radius-lg pt-3 pb-2">
-                                    <h6 className="text-white text-capitalize ps-3">Product List</h6>
+                                    <h6 className="text-white text-capitalize ps-3">Banner List</h6>
                                 </div>
                             </div>
                             <div className="card-body px-0 pb-2">
@@ -142,21 +111,16 @@ const ProductList = () => {
                                                 </th>
                                                 <th
                                                     className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                                                    style={{ width: "15%" }}
+                                                    style={{ width: "25%" }}
                                                 >
-                                                    Image
+                                                    Title
                                                 </th>
+
                                                 <th
                                                     className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                                     style={{ width: "20%" }}
                                                 >
-                                                    Name
-                                                </th>
-                                                <th
-                                                    className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                                                    style={{ width: "15%" }}
-                                                >
-                                                    Status
+                                                    Image
                                                 </th>
                                                 <th
                                                     className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
@@ -170,29 +134,20 @@ const ProductList = () => {
                                             {total === 0 ? (
                                                 <tr>
                                                     <td colSpan="6" className="text-center py-3">
-                                                        No Product Found
+                                                        No Banner  Found
                                                     </td>
                                                 </tr>
                                             ) : (
-                                                product.map((user, index) => (
+                                                banner.map((user, index) => (
                                                     <tr key={user.id} className="align-middle text-center">
                                                         <td className="text-sm text-secondary">{index + 1}</td>
+                                                        <td className="text-sm">{user?.title}</td>
                                                         <td>
                                                             <img
-                                                                src={`${BASE_URL}/${user.image}`}
+                                                                src={`${BASE_URL}/${user?.image}`}
                                                                 className="avatar avatar-sm rounded-circle mx-auto d-block"
                                                                 alt={user.name}
                                                             />
-                                                        </td>
-                                                        <td className="text-sm">{user.name}</td>
-                                                        <td className="align-middle text-center text-sm">
-                                                            <button
-                                                                className={`btn btn-sm ${user.status === '1' ? 'bg-gradient-success' : 'bg-gradient-danger'
-                                                                    } text-white`}
-                                                                onClick={() => handleStatusToggle(user.id)}
-                                                            >
-                                                                {user.status === '1' ? 'Active' : 'InActive'}
-                                                            </button>
                                                         </td>
                                                         <td className="align-middle text-center">
                                                             <div className="d-flex justify-content-center gap-3">
@@ -204,14 +159,17 @@ const ProductList = () => {
                                                                 >
                                                                     <Eye size={18} />
                                                                 </button>
+
                                                                 <button
                                                                     data-tooltip-id="addTip"
-                                                                    data-tooltip-content="Edit Category"
-                                                                    onClick={() => { handleEdit(user.id) }}
+                                                                    data-tooltip-content="Delete Category"
+                                                                    onClick={() => handleEdit(user.id)}
                                                                     className="text-secondary font-weight-bold text-xs bg-transparent border-0"
+                                                                    style={{ cursor: "pointer" }}
                                                                 >
                                                                     <Edit size={18} />
                                                                 </button>
+
                                                                 <button
                                                                     data-tooltip-id="addTip"
                                                                     data-tooltip-content="Delete Category"
@@ -221,7 +179,6 @@ const ProductList = () => {
                                                                 >
                                                                     <Trash size={18} />
                                                                 </button>
-
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -235,9 +192,8 @@ const ProductList = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer />
         </>
     )
 }
 
-export default ProductList
+export default BannerList

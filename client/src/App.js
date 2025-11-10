@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route,Navigate } from 'react-router-dom'
 import Login from './Component/Login'
 import Dashboard from './Component/Dashboard'
 import Layout from './Component/common/Layout'
@@ -24,14 +24,20 @@ import PrivacyPolicy from './Component/cms/PrivacyPolicy'
 import AboutUs from './Component/cms/AboutUs'
 import TermsCondition from './Component/cms/TermsCondition'
 import UpdateAdmin from './Component/profile/UpdateAdmin'
+import Rating from './Component/ratings/Rating'
+import ViewRating from './Component/ratings/ViewRating'
+import BannerList from './Component/banner/BannerList'
+import ViewBanner from './Component/banner/ViewBanner'
+import EditBanner from './Component/banner/EditBanner'
 
 const App = () => {
+  const isAuthenticated = localStorage.getItem("token");
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/' element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" />} />
         <Route element={<Layout />}>
-        <Route element={<Authenticate/>}>
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/userList' element={<Table />} />
           <Route path='/editUser/:id' element={<Edit />} />
@@ -53,10 +59,15 @@ const App = () => {
           <Route path='/privacy' element={<PrivacyPolicy />} />
           <Route path='/aboutUs' element={<AboutUs />} />
           <Route path='/termsConditions' element={<TermsCondition />} />
-          </Route>
+          <Route path='/rating' element={<Rating />} />
+          <Route path='/viewRating/:id' element={<ViewRating />} />
+          <Route path='/bannerList' element={<BannerList />} />
+          <Route path='/viewBanner/:id' element={<ViewBanner />} />
+          <Route path='/editBanner/:id' element={<EditBanner />} />
         </Route>
-      </Routes>
-    </Router>
+
+    </Routes>
+    </Router >
   )
 }
 

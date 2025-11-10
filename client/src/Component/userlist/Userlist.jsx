@@ -99,7 +99,7 @@ const Table = () => {
         // toast.success('User Status Updated Successfully ')
         // if (!isToastVisible) {
         //   setToastVisible(true);
-          toast.success("User Status Updated Successfully")
+        toast.success("User Status Updated Successfully")
         //     {
         //     onClose: () => setToastVisible(false),
         //   }
@@ -113,15 +113,13 @@ const Table = () => {
 
   return (
     <>
-      <div className="container-fluid py-2">
+      <div className="container-fluid">
         <div className="row">
           <div className="col-12">
             <div className="card my-4">
               <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                  <h6 className="text-white text-capitalize ps-3">
-                    Users
-                  </h6>
+                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-3 pb-2">
+                  <h6 className="text-white text-capitalize ps-3">Users</h6>
                 </div>
               </div>
               <div className="card-body px-0 pb-2">
@@ -147,11 +145,11 @@ const Table = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {users.map((user,index) => {
+                      {users.map((user, index) => {
                         return (
                           <tr key={user.id}>
                             <td className="align-middle text-center">
-                              <p className="text-xs text-secondary mb-0 ml-3">{index+1}</p>
+                              <p className="text-xs text-secondary mb-0 ml-3">{index + 1}</p>
                             </td>
                             <td>
                               <div className="d-flex px-2 py-1">
@@ -171,15 +169,15 @@ const Table = () => {
                             <td>
                               <p className="text-xs text-secondary mb-0">{user.email}</p>
                             </td>
-                              <td className="align-middle text-center text-sm">
-                                <button
-                                  className={`btn btn-sm ${user.status === '1' ? 'bg-gradient-success' : 'bg-gradient-danger'
-                                    } text-white`}
-                                  onClick={() => handleStatusToggle(user.id)}
-                                >
-                                  {user.status === '1' ? 'Online' : 'Offline'}
-                                </button>
-                              </td>
+                            <td className="align-middle text-center text-sm">
+                              <button
+                                className={`btn btn-sm ${user.status === '1' ? 'bg-gradient-success' : 'bg-gradient-danger'
+                                  } text-white`}
+                                onClick={() => handleStatusToggle(user.id)}
+                              >
+                                {user.status === '1' ? 'Online' : 'Offline'}
+                              </button>
+                            </td>
 
                             <td className="align-middle text-center">
                               <div className="d-flex justify-content-center gap-3">

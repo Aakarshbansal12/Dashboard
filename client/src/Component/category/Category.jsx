@@ -42,7 +42,7 @@ const Category = () => {
 
     const handleStatusToggle = async (id) => {
         try {
-            const res = await axiosInstance.post(`/categoryStatus/${id}`,{},);
+            const res = await axiosInstance.post(`/categoryStatus/${id}`, {},);
 
             if (res.data && res.data.status !== undefined) {
                 setCategory((prevData) =>
@@ -120,27 +120,28 @@ const Category = () => {
         fetchCategoryData();
     }, []);
     return (
-          <>
-            <div className="container-fluid py-2">
+        <>
+            <div className="container-fluid">
                 <div className="row">
                     <div className="col-12">
                         <div className="card my-4">
                             <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
-                                    <h6 className="text-white text-capitalize mb-0">Category List</h6>
-                                    <button
-                                        data-tooltip-id="addTip"
-                                        data-tooltip-content="Click to add a new category"
-                                        className="btn btn-success text-white"
-                                        onClick={handleAdd}
-                                    >
-                                        Add
-                                    </button>
+                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-3 pb-2 d-flex justify-content-between align-items-center px-3">
+                                    <h6 className="text-white text-capitalize m-0">Category List</h6>
 
-                                    <Tooltip id="addTip" place="bottom" />
+                                    <div>
+                                        <button
+                                            data-tooltip-id="addTip"
+                                            data-tooltip-content="Click to add a new category"
+                                            className="btn btn-success text-white"
+                                            onClick={handleAdd}
+                                        >
+                                            Add
+                                        </button>
+                                        <Tooltip id="addTip" place="bottom" />
+                                    </div>
                                 </div>
                             </div>
-
                             <div className="card-body px-0 pb-2">
                                 <div className="table-responsive p-0">
                                     <table className="table align-items-center text-center mb-0">

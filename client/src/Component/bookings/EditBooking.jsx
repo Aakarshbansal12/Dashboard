@@ -40,33 +40,33 @@ const EditBooking = () => {
         }
     }
 
-    const handleSubmit= async (e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!String(users.booking_date).trim() ||
-              !String(users.booking_code).trim() ||
-              !String(users.booking_time).trim() ||
-              !String(users.price).trim() ) {
-              toast.warning("Please fill in all fields before submitting!");
-              return;
-            }
-        
+            !String(users.booking_code).trim() ||
+            !String(users.booking_time).trim() ||
+            !String(users.price).trim()) {
+            toast.warning("Please fill in all fields before submitting!");
+            return;
+        }
+
         try {
-              const formData = new FormData();
-              formData.append("booking_date", users.booking_date);
-              formData.append("booking_code", users.booking_code);
-              formData.append("booking_time", users.booking_time);
-              formData.append("price", users.price);
-        
-              await axiosInstance.post(`${BASE_URL}/updateBooking/${id}`, formData);
-        
-              toast.success('User Data Updated Successfully ')
-              setTimeout(() => {
+            const formData = new FormData();
+            formData.append("booking_date", users.booking_date);
+            formData.append("booking_code", users.booking_code);
+            formData.append("booking_time", users.booking_time);
+            formData.append("price", users.price);
+
+            await axiosInstance.post(`${BASE_URL}/updateBooking/${id}`, formData);
+
+            toast.success('User Data Updated Successfully ')
+            setTimeout(() => {
                 navigate("/bookingList");
-              }, 1000);
-        
-            } catch (error) {
-              console.log(error, "error in handle Submit");
-            }
+            }, 1000);
+
+        } catch (error) {
+            console.log(error, "error in handle Submit");
+        }
 
     }
 
@@ -75,13 +75,13 @@ const EditBooking = () => {
     }, [id]);
     return (
         <>
-            <div className="container-fluid py-2">
+            <div className="container-fluid">
                 <div className="row">
                     <div className="col-12">
                         <div className="card my-4">
                             <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                                    <h6 className="text-white text-capitalize ps-3">Edit Booking</h6>
+                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-3 pb-2">
+                                    <h6 className="text-white text-capitalize ps-3">Edit Bookings</h6>
                                 </div>
                             </div>
                             <div className="card-body px-4 pb-4">
@@ -143,7 +143,7 @@ const EditBooking = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </>
     )
 }

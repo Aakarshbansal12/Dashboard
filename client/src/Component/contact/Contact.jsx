@@ -8,9 +8,9 @@ import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
     const [users, setUsers] = useState([]);
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
-    const handleView=(id)=>{
+    const handleView = (id) => {
         navigate(`/viewContact/${id}`)
     }
 
@@ -31,61 +31,61 @@ const Contact = () => {
 
     const handleDelete = async (id) => {
         const swalWithBootstrapButtons = Swal.mixin({
-          customClass: {
-            confirmButton: "btn btn-success mx-2",
-            cancelButton: "btn btn-danger mx-2",
-          },
-          buttonsStyling: false,
+            customClass: {
+                confirmButton: "btn btn-success mx-2",
+                cancelButton: "btn btn-danger mx-2",
+            },
+            buttonsStyling: false,
         });
-    
+
         swalWithBootstrapButtons
-          .fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: true,
-          })
-          .then(async (result) => {
-            if (result.isConfirmed) {
-              try {
-                await axiosInstance.post(`/deleteQuery/${id}`);
-    
-                setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
-    
-                swalWithBootstrapButtons.fire({
-                  title: "Deleted!",
-                  text: "User has been deleted successfully.",
-                  icon: "success",
-                });
-              } catch (error) {
-                console.error("Error deleting user:", error);
-                swalWithBootstrapButtons.fire({
-                  title: "Error!",
-                  text: "Failed to delete user.",
-                  icon: "error",
-                });
-              }
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-              swalWithBootstrapButtons.fire({
-                title: "Cancelled",
-                text: "Your data is safe :)",
-                icon: "error",
-              });
-            }
-          });
-      };
+            .fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true,
+            })
+            .then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        await axiosInstance.post(`/deleteQuery/${id}`);
+
+                        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+
+                        swalWithBootstrapButtons.fire({
+                            title: "Deleted!",
+                            text: "User has been deleted successfully.",
+                            icon: "success",
+                        });
+                    } catch (error) {
+                        console.error("Error deleting user:", error);
+                        swalWithBootstrapButtons.fire({
+                            title: "Error!",
+                            text: "Failed to delete user.",
+                            icon: "error",
+                        });
+                    }
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "Your data is safe :)",
+                        icon: "error",
+                    });
+                }
+            });
+    };
     return (
         <>
-            <div className="container-fluid py-2">
+            <div className="container-fluid">
                 <div className="row">
                     <div className="col-12">
                         <div className="card my-4">
                             <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                                    <h6 className="text-white text-capitalize ps-3">Contact List</h6>
+                                <div className="bg-gradient-dark shadow-dark border-radius-lg pt-3 pb-2">
+                                    <h6 className="text-white text-capitalize ps-3">Contact Us</h6>
                                 </div>
                             </div>
                             <div className="card-body px-0 pb-2">

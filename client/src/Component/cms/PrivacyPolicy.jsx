@@ -37,30 +37,30 @@ const PrivacyPolicy = () => {
   };
 
   const handleSubmit = async (e) => {
-          e.preventDefault();
-  
-          const plainText = users.content
-              .replace(/<[^>]+>/g, "")
-              .replace(/&nbsp;/g, "")
-              .trim();
-  
-          if (!users.title.trim() || !plainText) {
-              toast.warning("Please fill in content field before submitting!");
-              return;
-          }
-  
-          try {
-              const formData = new FormData();
-              formData.append("title", users.title);
-              formData.append("content", users.content);
-  
-              await axiosInstance.post(`/getPrivacy`, formData);
-              toast.success("Terms & Conditions updated successfully!");
-          } catch (error) {
-              console.error("Error in handleSubmit:", error);
-              toast.error("Failed to update Terms & Conditions!");
-          }
-      };
+    e.preventDefault();
+
+    const plainText = users.content
+      .replace(/<[^>]+>/g, "")
+      .replace(/&nbsp;/g, "")
+      .trim();
+
+    if (!users.title.trim() || !plainText) {
+      toast.warning("Please fill in content field before submitting!");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("title", users.title);
+      formData.append("content", users.content);
+
+      await axiosInstance.post(`/getPrivacy`, formData);
+      toast.success("Terms & Conditions updated successfully!");
+    } catch (error) {
+      console.error("Error in handleSubmit:", error);
+      toast.error("Failed to update Terms & Conditions!");
+    }
+  };
 
   // Fetch existing data
   const fetchData = async () => {
@@ -89,15 +89,13 @@ const PrivacyPolicy = () => {
   }, []);
 
   return (
-    <div className="container-fluid py-2">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-12">
           <div className="card my-4">
             <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div className="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                <h6 className="text-white text-capitalize ps-3">
-                  Privacy Policy
-                </h6>
+              <div className="bg-gradient-dark shadow-dark border-radius-lg pt-3 pb-2">
+                <h6 className="text-white text-capitalize ps-3">Privacy Policy</h6>
               </div>
             </div>
 
@@ -145,9 +143,9 @@ const PrivacyPolicy = () => {
           </div>
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
-    
+
   );
 };
 

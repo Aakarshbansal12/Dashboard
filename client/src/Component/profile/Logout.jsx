@@ -34,7 +34,7 @@ const Logout = () => {
           text: "You have been successfully logged out.",
           icon: "success"
         }).then(() => {
-          navigate("/",{ replace: true }); 
+          navigate("/login",{ replace: true }); 
         });
 
       } else if (result.dismiss === Swal.DismissReason.cancel) {
