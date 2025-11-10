@@ -8,6 +8,8 @@ var booking=require('../controller/bookingsController');
 var admin=require('../controller/adminController')
 var contact=require('../controller/contactController')
 var cms=require('../controller/cmsController')
+var rating=require('../controller/ratingController')
+var banner=require('../controller/bannerController')
 
 ////////// USER CONTROLLER /////////////////
 router.post('/addUser',users.addUser);
@@ -69,6 +71,20 @@ router.get('/getAboutUs',cms.getAboutUs);
 router.post('/getAboutUs',cms.updateAboutUs);
 router.get('/getTerms',cms.getTerms);
 router.post('/getTerms',cms.updateTerms);
+
+///////  RATING CONTROLLER //////////
+
+router.get('/getRating/:id',rating.getRating)
+router.get('/getAllRating',rating.getAllRating)
+router.get('/getAvgRating',rating.getAvgRating)
+
+/////// BANNER CONTROLLER /////////////
+router.post('/addBanner',banner.addBanner)
+router.get('/getAllBanner',banner.getAllBanner)
+router.get('/countBanner',banner.countBanner);
+router.get('/getBanner/:id',banner.getBanner);
+router.post('/deleteBanner/:id',banner.deleteBanner)
+router.post('/updateBanner/:id',banner.updateBanner);
 
 
 module.exports = router;

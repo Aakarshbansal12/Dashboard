@@ -1,12 +1,12 @@
 var DataTypes = require("sequelize").DataTypes;
-var _cms = require("./cms");
+var _rating = require("./rating");
 
 function initModels(sequelize) {
-  var cms = _cms(sequelize, DataTypes);
+  var rating = _rating(sequelize, DataTypes);
 
 
   return {
-    cms,
+    rating,
   };
 }
 module.exports = initModels;

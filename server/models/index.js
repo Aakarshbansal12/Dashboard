@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const Sequelize = require('sequelize');
+const Sequelize  = require("sequelize");
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
@@ -39,5 +39,9 @@ Object.keys(db).forEach(modelName => {
 sequelize.sync({alter:false})
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+db.rating.belongsTo(db.product, { foreignKey: "product_id", as: "products" });
+db.rating.belongsTo(db.users, { foreignKey: "users_id", as: "userss" });
+
 
 module.exports = db;
